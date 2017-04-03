@@ -1,0 +1,6 @@
+.gradle/
+.idea/
+.meghanada/
+target/
+algorithms.iml
+src/main/resources/
