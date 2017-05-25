@@ -39,4 +39,47 @@ public class SymbolDigraph {
       }
     }
   }
+
+  public boolean contains(String s) {
+    return st.contains(s);
+  }
+
+  @Deprecated
+  public int index(String s) {
+    return st.get(s);
+  }
+
+  public int indexOf(String s) {
+    return st.get(s);
+  }
+
+  @Deprecated
+  public String name(int v) {
+    return keys[v];
+  }
+
+  public String nameOf(int v) {
+    return keys[v];
+  }
+
+  public Digraph G() {
+    return graph;
+  }
+
+  public Digraph digraph() {
+    return graph;
+  }
+
+  public static void main(String[] args) {
+    String filename = args[0];
+    String delimiter = args[1];
+    SymbolDigraph sg = new SymbolDigraph(filename, delimiter);
+    Digraph graph = sg.digraph();
+    while (!StdIn.isEmpty()) {
+      String t = StdIn.readLine();
+      for (int v : graph.adj(sg.index(t))) {
+        StdOut.println("  " + sg.name(v));
+      }
+    }
+  }
 }
