@@ -177,4 +177,12 @@ public class IndexMinPQ<Key extends Comparable<Key>> implements Iterable<Integer
   }
 
   /** Decrease the key associated with index {@code i} to the specified value. */
+  public void decreaseKey(int i, Key key) {
+    if (i < 0 || i >= maxN) {
+      throw new IndexOutOfBoundsException("index is not in the priority queue");
+    }
+    if (!contains(i)) {
+      throw new NoSuchElementException("index is not in the priority queue");
+    }
+  }
 }
