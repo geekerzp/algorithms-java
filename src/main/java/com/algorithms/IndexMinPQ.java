@@ -254,4 +254,64 @@ public class IndexMinPQ<Key extends Comparable<Key>> implements Iterable<Integer
       k = j;
     }
   }
+
+  /** Iterators. */
+  @Override
+  public Iterator<Integer> iterator() {
+    return new HeapIterator();
+  }
+
+  private class HeapIterator implements Iterator<Integer> {
+    private IndexMinPQ<Key> copy;
+
+    public HeapIterator() {
+      copy = new IndexMinPQ<>(pq.length - 1);
+      for (int i = 1; i <= n; i++) {
+        copy.insert(pq[i], keys[pq[i]]);
+      }
+    }
+
+    @Override
+    public boolean hasNext() {
+      return !copy.isEmpty();
+    }
+
+    public void remove() {
+      throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Integer next() {
+      if (!hasNext()) {
+        throw new NoSuchElementException();
+      }
+      return copy.delMin();
+    }
+  }
+
+  public static void main(String[] args) {
+    String[] strings = {"it", "was", "the", "best", "of", "times", "it", "was", "the", "worst"};
+
+    IndexMinPQ<String> pq = new IndexMinPQ<>(strings.length);
+    for (int i = 0; i < strings.length; i++) {
+      pq.insert(i, strings[i]);
+    }
+
+    while (!pq.isEmpty()) {
+      int i = pq.delMin();
+      StdOut.println(i + " " + strings[i]);
+    }
+    StdOut.println();
+
+    for (int i = 0; i < strings.length; i++) {
+      pq.insert(i, strings[i]);
+    }
+
+    for (int i : pq) {
+      StdOut.println(i + " " + strings[i]);
+    }
+    while (!pq.isEmpty()) {
+      pq.delMin();
+    }
+  }
 }
